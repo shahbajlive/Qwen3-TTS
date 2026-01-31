@@ -19,7 +19,7 @@ The vLLM-Omni backend provides optimized inference for Qwen3-TTS using the [vLLM
 docker compose --profile vllm up -d --build qwen3-tts-vllm
 
 # Check health
-curl -s http://localhost:8880/health | jq .
+curl -s http://localhost:8881/health | jq .
 
 # Run benchmark
 python3 bench_tts.py --label "vLLM-Omni" | tee bench_vllm.txt

@@ -105,7 +105,7 @@ from openai import OpenAI
 
 # Point to your local Qwen3-TTS server
 client = OpenAI(
-    base_url="http://localhost:8880/v1",
+    base_url="http://localhost:8881/v1",
     api_key="not-needed"  # API key not required for local server
 )
 
@@ -157,7 +157,7 @@ When using these language-specific models, any `language` parameter in the reque
 
 ### Web Interface
 
-After starting the server, visit `http://localhost:8880` for an interactive web demo:
+After starting the server, visit `http://localhost:8881` for an interactive web demo:
 
 ![Qwen3-TTS Web Interface](https://github.com/user-attachments/assets/cc270f90-2182-44b6-82d5-30aac17360cb)
 
@@ -182,11 +182,11 @@ python -m api.main
 ./start_server.sh
 ```
 
-The server will start on `http://0.0.0.0:8880` by default.
+The server will start on `http://0.0.0.0:8881` by default.
 
 **Environment Variables:**
 - `HOST` - Server host (default: `0.0.0.0`)
-- `PORT` - Server port (default: `8880`)
+- `PORT` - Server port (default: `8881`)
 - `WORKERS` - Number of workers (default: `1`)
 - `CORS_ORIGINS` - CORS origins (default: `*`)
 - `TTS_BACKEND` - Backend engine: `official` or `vllm_omni` (default: `official`)
@@ -216,7 +216,7 @@ For detailed vLLM-Omni setup and configuration, see [docs/vllm-backend.md](docs/
 ```bash
 # Build and run with GPU support
 docker build -t qwen3-tts-api .
-docker run --gpus all -p 8880:8880 qwen3-tts-api
+docker run --gpus all -p 8881:8881 qwen3-tts-api
 
 # Or use Docker Compose for easier management
 docker-compose up qwen3-tts-gpu
@@ -227,7 +227,7 @@ docker-compose up qwen3-tts-gpu
 ```bash
 # Build vLLM-enabled image
 docker build -t qwen3-tts-api:vllm --target vllm-production .
-docker run --gpus all -p 8880:8880 \
+docker run --gpus all -p 8881:8881 \
   -e TTS_BACKEND=vllm_omni \
   -e TTS_WARMUP_ON_START=true \
   qwen3-tts-api:vllm
@@ -241,7 +241,7 @@ docker-compose --profile vllm up qwen3-tts-vllm
 ```bash
 # Build CPU-only variant
 docker build -t qwen3-tts-api-cpu --target cpu-base .
-docker run -p 8880:8880 qwen3-tts-api-cpu
+docker run -p 8881:8881 qwen3-tts-api-cpu
 
 # Or use Docker Compose
 docker-compose --profile cpu up qwen3-tts-cpu

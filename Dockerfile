@@ -129,17 +129,17 @@ USER appuser
 
 # Environment variables
 ENV HOST=0.0.0.0
-ENV PORT=8880
+ENV PORT=8881
 ENV WORKERS=1
 ENV PYTHONPATH=/app
 ENV TTS_BACKEND=official
 
 # Expose port
-EXPOSE 8880
+EXPOSE 8881
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
-    CMD curl -f http://localhost:8880/health || exit 1
+    CMD curl -f http://localhost:8881/health || exit 1
 
 # Run the server
 CMD ["python", "-m", "api.main"]
@@ -213,17 +213,17 @@ USER appuser
 
 # Environment variables
 ENV HOST=0.0.0.0
-ENV PORT=8880
+ENV PORT=8881
 ENV WORKERS=1
 ENV PYTHONPATH=/app
 ENV TTS_BACKEND=vllm_omni
 
 # Expose port
-EXPOSE 8880
+EXPOSE 8881
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=10s --start-period=90s --retries=3 \
-    CMD curl -f http://localhost:8880/health || exit 1
+    CMD curl -f http://localhost:8881/health || exit 1
 
 # Run the server
 CMD ["python", "-m", "api.main"]
@@ -292,13 +292,13 @@ USER appuser
 
 # Environment variables
 ENV HOST=0.0.0.0
-ENV PORT=8880
+ENV PORT=8881
 ENV WORKERS=1
 ENV PYTHONPATH=/app
 
-EXPOSE 8880
+EXPOSE 8881
 
 HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
-    CMD curl -f http://localhost:8880/health || exit 1
+    CMD curl -f http://localhost:8881/health || exit 1
 
 CMD ["python", "-m", "api.main"]

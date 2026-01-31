@@ -6,17 +6,17 @@ The Qwen3-TTS OpenAI-Compatible API has been successfully deployed in Docker.
 
 ### Configuration
 - **Container Name**: `qwen3-tts-api`
-- **Port**: 8880
+- **Port**: 8881
 - **GPU**: GPU 2 (NVIDIA GeForce RTX 3090)
 - **GPU Memory Usage**: ~4.7 GB
 - **Model**: Qwen3-TTS-12Hz-0.6B-Base
 - **Status**: Running and healthy
 
 ### Access Points
-- **API Endpoint**: http://localhost:8880
-- **API Documentation**: http://localhost:8880/docs
-- **Web Interface**: http://localhost:8880/
-- **Health Check**: http://localhost:8880/health
+- **API Endpoint**: http://localhost:8881
+- **API Documentation**: http://localhost:8881/docs
+- **Web Interface**: http://localhost:8881/
+- **Health Check**: http://localhost:8881/health
 
 ### Available Models
 - `qwen3-tts`
@@ -34,7 +34,7 @@ All tests passed successfully:
 
 #### cURL Example
 ```bash
-curl -X POST http://localhost:8880/v1/audio/speech \
+curl -X POST http://localhost:8881/v1/audio/speech \
   -H "Content-Type: application/json" \
   -d '{
     "model": "tts-1",
@@ -50,7 +50,7 @@ curl -X POST http://localhost:8880/v1/audio/speech \
 import requests
 
 response = requests.post(
-    "http://localhost:8880/v1/audio/speech",
+    "http://localhost:8881/v1/audio/speech",
     json={
         "model": "tts-1",
         "input": "Hello! This is Qwen3 TTS.",

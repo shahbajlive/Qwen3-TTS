@@ -27,7 +27,7 @@ logger = logging.getLogger(__name__)
 
 # Server configuration
 HOST = os.getenv("HOST", "0.0.0.0")
-PORT = int(os.getenv("PORT", "8880"))
+PORT = int(os.getenv("PORT", "8881"))
 WORKERS = int(os.getenv("WORKERS", "1"))
 
 # Backend configuration
@@ -110,7 +110,7 @@ providing full compatibility with OpenAI's TTS API specification.
 ```python
 from openai import OpenAI
 
-client = OpenAI(base_url="http://localhost:8880/v1", api_key="not-needed")
+client = OpenAI(base_url="http://localhost:8881/v1", api_key="not-needed")
 
 response = client.audio.speech.create(
     model="qwen3-tts",

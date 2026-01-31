@@ -66,7 +66,7 @@ export TTS_WARMUP_ON_START=true
 
 # Server settings
 export HOST=0.0.0.0
-export PORT=8880
+export PORT=8881
 export WORKERS=1
 ```
 
@@ -101,7 +101,7 @@ The API is identical to the official backend:
 ```python
 from openai import OpenAI
 
-client = OpenAI(base_url="http://localhost:8880/v1", api_key="not-needed")
+client = OpenAI(base_url="http://localhost:8881/v1", api_key="not-needed")
 
 response = client.audio.speech.create(
     model="qwen3-tts",
@@ -116,7 +116,7 @@ response.stream_to_file("output.mp3")
 Check backend status:
 
 ```bash
-curl http://localhost:8880/health
+curl http://localhost:8881/health
 ```
 
 Response:
@@ -291,7 +291,7 @@ docker build -t qwen3-tts:vllm --target vllm-production .
 docker run -d \
   --name qwen3-tts-vllm \
   --gpus all \
-  -p 8880:8880 \
+  -p 8881:8881 \
   -e TTS_BACKEND=vllm_omni \
   -e TTS_WARMUP_ON_START=true \
   -e TTS_MODEL_NAME=Qwen/Qwen3-TTS-12Hz-0.6B-CustomVoice \

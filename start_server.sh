@@ -7,7 +7,7 @@ cd "$SCRIPT_DIR"
 
 # Set environment variables
 export HOST=${HOST:-"0.0.0.0"}
-export PORT=${PORT:-8880}
+export PORT=${PORT:-8881}
 export WORKERS=${WORKERS:-1}
 export PYTHONPATH="$SCRIPT_DIR:$PYTHONPATH"
 
