@@ -10,8 +10,7 @@ import time
 from typing import List, Optional
 
 import numpy as np
-from fastapi import APIRouter, HTTPException, Request, Response
-from fastapi.responses import StreamingResponse
+from fastapi import APIRouter, HTTPException, Response
 
 from ..structures.schemas import OpenAISpeechRequest, ModelInfo, VoiceInfo
 from ..services.text_processing import normalize_text
@@ -186,21 +185,12 @@ async def generate_speech(
 
 
 @router.post("/audio/speech")
-async def create_speech(
-    request: OpenAISpeechRequest,
-    client_request: Request,
-):
+async def create_speech(request: OpenAISpeechRequest):
     """
     OpenAI-compatible endpoint for text-to-speech.
     
     Generates audio from the input text using the specified voice and model.
-    
-    Supports streaming via query parameter: ?stream=true
-    When streaming, uses standard HTTP chunked transfer encoding.
     """
-    # Check for streaming request
-    stream = client_request.query_params.get("stream", "false").lower() == "true"
-    
     # Validate model
     if request.model not in MODEL_MAPPING:
         raise HTTPException(
@@ -245,32 +235,14 @@ async def create_speech(
         # Get content type
         content_type = get_content_type(request.response_format)
         
-        # Return streaming or regular response
-        if stream:
-            # Stream audio in chunks using standard HTTP chunked transfer encoding
-            async def generate_chunks():
-                chunk_size = 8192  # 8KB chunks (good balance for audio)
-                for i in range(0, len(audio_bytes), chunk_size):
-                    yield audio_bytes[i:i + chunk_size]
-            
-            return StreamingResponse(
-                generate_chunks(),
-                media_type=content_type,
-                headers={
-                    "Cache-Control": "no-cache",
-                    "X-Accel-Buffering": "no",  # Disable nginx buffering
-                }
-            )
-        else:
-            # Return complete audio response (non-streaming)
-            return Response(
-                content=audio_bytes,
-                media_type=content_type,
-                headers={
-                    "Content-Disposition": f"attachment; filename=speech.{request.response_format}",
-                    "Cache-Control": "no-cache",
-                },
-            )
+        return Response(
+            content=audio_bytes,
+            media_type=content_type,
+            headers={
+                "Content-Disposition": f"attachment; filename=speech.{request.response_format}",
+                "Cache-Control": "no-cache",
+            },
+        )
         
     except HTTPException:
         raise

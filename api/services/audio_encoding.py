@@ -180,24 +180,3 @@ def encode_audio(
         # Fall back to WAV on any encoding error
         logger.warning(f"Failed to encode to {format} ({e}), returning WAV")
         return convert_to_wav(audio, sample_rate)
-
-
-async def encode_audio_streaming(
-    audio_generator,
-    format: AudioFormat = "mp3",
-    sample_rate: int = DEFAULT_SAMPLE_RATE,
-):
-    """
-    Async generator that encodes audio chunks to the specified format.
-    
-    Args:
-        audio_generator: Async generator yielding audio chunks as numpy arrays
-        format: Target audio format
-        sample_rate: Sample rate in Hz
-    
-    Yields:
-        Encoded audio chunks
-    """
-    async for audio_chunk in audio_generator:
-        if audio_chunk is not None and len(audio_chunk) > 0:
-            yield encode_audio(audio_chunk, format, sample_rate)
