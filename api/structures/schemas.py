@@ -67,10 +67,6 @@ class OpenAISpeechRequest(BaseModel):
         le=4.0,
         description="The speed of the generated audio. Select a value from 0.25 to 4.0.",
     )
-    stream: bool = Field(
-        default=False,
-        description="If true, audio will be streamed as it's generated.",
-    )
     language: Optional[str] = Field(
         default="Auto",
         description="Optional language code for TTS. If not provided, will auto-detect.",
